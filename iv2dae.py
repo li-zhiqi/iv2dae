@@ -95,9 +95,11 @@ if __name__ == '__main__':
         if m.group(1) is not None:
             material = m.group(2)
             color = [float(x) for x in material.strip().split()]
+            if len(color) == 3:
+                color.append(1.0)
             effect_id_str = 'effect{0}'.format(effect_id) 
             dae_effect = dae.material.Effect(effect_id_str, 
-                    [], 'phong', diffuse=color)
+                    [], 'phong', diffuse=color, ambient=color)
             dae_obj.effects.append(dae_effect)
             effect_id += 1
             dae_material = dae.material.Material("material{0}".format(material_id),
